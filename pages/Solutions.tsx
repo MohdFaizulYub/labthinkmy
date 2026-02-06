@@ -7,6 +7,14 @@ import hseCompetencyImage from '../assets/images/solution/HSE Competency.png';
 import eventManagementImage from '../assets/images/solution/Event Management.png';
 import consultingServicesImage from '../assets/images/solution/Consulting Services.png';
 
+// Popup images
+import propertyDevelopmentImg from '../assets/images/popup-images/Property Development.png';
+import solarSystemsImg from '../assets/images/popup-images/Solar Systems.png';
+import wasteToEnergyImg from '../assets/images/popup-images/Waste to Energy.png';
+import sportsComplexImg from '../assets/images/popup-images/Sport Complex.png';
+import tinyHome1Img from '../assets/images/popup-images/Prefabricated Tiny Home 1.jpeg';
+import tinyHome2Img from '../assets/images/popup-images/Prefabricated Tiny Home 2.jpeg';
+
 interface ShowcaseProps {
   onClose: () => void;
   title: string;
@@ -156,16 +164,13 @@ const Solutions: React.FC = () => {
   }, []);
 
   const projectPortfolio = [
-    { title: "Property Development", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" },
-    { title: "Solar Systems", img: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&q=80&w=1200" },
-    { title: "Waste-to-Energy", img: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=1200" },
-    { title: "Sports Complex", img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=1200" },
+    { title: "Property Development", img: propertyDevelopmentImg },
+    { title: "Solar Systems", img: solarSystemsImg },
+    { title: "Waste-to-Energy", img: wasteToEnergyImg },
+    { title: "Sports Complex", img: sportsComplexImg },
     {
       title: "Prefabricated Tiny Home",
-      imgs: [
-        "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1525113990974-3f4e24eaa397?auto=format&fit=crop&q=80&w=1000"
-      ]
+      imgs: [tinyHome1Img, tinyHome2Img]
     },
   ];
 
