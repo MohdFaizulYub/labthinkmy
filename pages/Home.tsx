@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ShieldCheck, Cpu, LineChart, Users, Zap } from 'lucide-react';
 import heroImage from '../assets/images/home/hero.png';
 
+// Import Highlight Images for Showcase
+import event01 from '../assets/images/highlight/event/Event 01.jpeg';
+import event02 from '../assets/images/highlight/event/Event 02.jpeg';
+import event03 from '../assets/images/highlight/event/Event 03.jpeg';
+import facility01 from '../assets/images/highlight/facilities/Facility 01.jpeg';
+import facility02 from '../assets/images/highlight/facilities/Facility 02.jpeg';
+import training01 from '../assets/images/highlight/training/Training 01.jpg';
+import training02 from '../assets/images/highlight/training/Training 02.jpg';
+
 const Home: React.FC = () => {
   const focuses = [
     {
@@ -29,13 +38,13 @@ const Home: React.FC = () => {
   ];
 
   const showcaseImages = [
-    { url: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800", alt: "Strategy Workshop", span: "md:col-span-2 md:row-span-2" },
-    { url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800", alt: "Modern Training Facility", span: "" },
-    { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800", alt: "Leadership Seminar", span: "" },
-    { url: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&q=80&w=1200", alt: "Technical Training Session", span: "md:col-span-2" },
-    { url: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800", alt: "Executive Briefing", span: "" },
-    { url: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=800", alt: "Team Collaboration", span: "" },
-    { url: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800", alt: "Digital Innovation Lab", span: "md:col-span-2" }
+    { url: event01, alt: "Annual Certification Gala", span: "md:col-span-2 md:row-span-2" },
+    { url: facility01, alt: "Main Lecture Hall", span: "" },
+    { url: training01, alt: "Technical Safety Training", span: "" },
+    { url: event02, alt: "Global Leadership Summit", span: "md:col-span-2" },
+    { url: facility02, alt: "Collaborative Learning Hub", span: "" },
+    { url: training02, alt: "Industrial Skills Workshop", span: "" },
+    { url: event03, alt: "Networking Night", span: "md:col-span-2" }
   ];
 
   return (

@@ -30,6 +30,11 @@ import supervisorySkillsImage from '../assets/images/training/course-image/manag
 import analyticalThinkingImage from '../assets/images/training/course-image/management/Analytical and Critical Thinking.png';
 import changeManagementImage from '../assets/images/training/course-image/management/Change Management for Professional.png';
 
+// Language Images
+import languageCorporateImage from '../assets/images/training/course-image/language/Language Program for Corporate.png';
+import languageStudentsImage from '../assets/images/training/course-image/language/Language Program for Students.png';
+import ieltsTeflImage from '../assets/images/training/course-image/language/IELTS & TEFL Preparation Course.png';
+
 interface Program {
   title: string;
   cat: string;
@@ -105,7 +110,7 @@ const Training: React.FC = () => {
     }
   ];
 
-  const categories = ['All', 'Management', 'Health & Safety', 'ESG', 'Technology'];
+  const categories = ['All', 'Management', 'Health & Safety', 'ESG', 'Technology', 'Language'];
 
   const programs: Program[] = [
     // TECHNOLOGY CATEGORY
@@ -125,7 +130,7 @@ const Training: React.FC = () => {
       title: "Blockchain Technology",
       cat: "Technology",
       image: blockchainTechnologyImage,
-      description: "A practical introduction to blockchain technology, covering its core concepts, architecture, and real-world applications across industries. Participants will gain an understanding of how distributed ledger systems work, including consensus mechanisms, security principles, and emerging use cases such as digital identity, supply chain tracking, and financial technologies."
+      description: "A practical introduction to blockchain technology, covering its core concepts, architecture, and real-world applications across industries. Participants will gain an understanding of how distributed ledger systems work, including consensus mechanisms, security principles, and emerging use cases such as healthcare management, supply chain tracking, and financial technologies."
     },
     {
       title: "Digital Transformation & Strategy",
@@ -222,6 +227,26 @@ const Training: React.FC = () => {
       cat: "Management",
       image: changeManagementImage,
       description: "Mastering the human and operational dimensions of organizational transition to ensure business continuity and success. Equip professionals with the knowledge and skills required to effectively manage, support, and sustain change within organisations. Designed to support organisations in navigating transformation initiatives, minimising disruption, and achieving sustainable change outcomes."
+    },
+
+    // LANGUAGE CATEGORY
+    {
+      title: "Language Program for Corporate",
+      cat: "Language",
+      image: languageCorporateImage,
+      description: "A tailored language course designed to equip professionals with practical language skills for effective workplace communication. Focused on real business scenarios, it enhances speaking, writing, and presentation abilities, while strengthening confidence in meetings, negotiations, and cross-cultural interactions. Learners develop clear, professional, and impactful communication skills that drive collaboration and business performance."
+    },
+    {
+      title: "Language Program for Students",
+      cat: "Language",
+      image: languageStudentsImage,
+      description: "This program helps students build strong communication skills for academic success and future careers. Through interactive learning and real-world practice, learners improve their speaking, writing, reading, and listening abilities while gaining confidence in presentations, discussions, and teamwork. The course prepares students to communicate clearly and confidently in both academic and professional environments."
+    },
+    {
+      title: "IELTS & TEFL Preparation Course",
+      cat: "Language",
+      image: ieltsTeflImage,
+      description: "The IELTS and TEFL Preparation Course offers structured training in English language proficiency and teaching methodology. The programme supports participants in meeting international language assessment requirements while developing essential competencies for English language instruction in diverse educational contexts. Learners will develop strategic language and test performance skills across Listening, Reading, Writing, and Speaking, enabling them to meet required band scores for overseas postings, postgraduate study, and regulatory or migration requirements."
     },
   ];
 
