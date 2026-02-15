@@ -1,21 +1,16 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Camera, Users, Building2, Zap, ArrowLeft, X, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Event Images
-import event01 from '../assets/images/highlight/event/Event 01.jpeg';
 import event02 from '../assets/images/highlight/event/Event 02.jpeg';
-import event03 from '../assets/images/highlight/event/Event 03.jpeg';
-import event04 from '../assets/images/highlight/event/Event 04.jpeg';
 import event05 from '../assets/images/highlight/event/Event 05.jpeg';
-import event06 from '../assets/images/highlight/event/Event 06.jpeg';
-import event07 from '../assets/images/highlight/event/Event 07.jpeg';
 import event08 from '../assets/images/highlight/event/Event 08.jpeg';
 import event09 from '../assets/images/highlight/event/Event 09.jpeg';
 import event10 from '../assets/images/highlight/event/Event 10.jpeg';
 import event11 from '../assets/images/highlight/event/Event 11.jpeg';
-import event12 from '../assets/images/highlight/event/Event 12.jpeg';
 
 // Facilities Images
 import facility01 from '../assets/images/highlight/facilities/Facility 01.jpeg';
@@ -26,7 +21,7 @@ import facility06 from '../assets/images/highlight/facilities/Facility 06.jpeg';
 import facility07 from '../assets/images/highlight/facilities/Facility 07.jpeg';
 import facility08 from '../assets/images/highlight/facilities/Facility 08.jpeg';
 import facility09 from '../assets/images/highlight/facilities/Facility 09.jpeg';
-import facility10 from '../assets/images/highlight/facilities/Facility 10.jpeg';
+import facility10 from '../assets/images/highlight/facilities/Facility 10.jpg';
 import facility11 from '../assets/images/highlight/facilities/Facility 11.jpeg';
 import facility12 from '../assets/images/highlight/facilities/Facility 12.jpg';
 import facility13 from '../assets/images/highlight/facilities/Facility 13.jpg';
@@ -38,6 +33,10 @@ import facility16 from '../assets/images/highlight/facilities/Facility 16.jpg';
 import training01 from '../assets/images/highlight/training/Training 01.jpg';
 import training02 from '../assets/images/highlight/training/Training 02.jpg';
 import training03 from '../assets/images/highlight/training/Training 03.jpeg';
+import training04 from '../assets/images/highlight/training/Training 04.jpeg';
+import training05 from '../assets/images/highlight/training/Training 05.jpeg';
+import training06 from '../assets/images/highlight/training/Training 06.jpeg';
+import training07 from '../assets/images/highlight/training/Training 07.jpeg';
 
 interface GalleryItem {
   url: string;
@@ -71,6 +70,30 @@ const Highlights: React.FC = () => {
       title: "Advanced Engineering Simulation",
       category: "Training",
       description: "Advanced simulation session designed to enhance technical competency and operational safety in high-stakes environments."
+    },
+    {
+      url: training04,
+      title: "Operational Safety Drill",
+      category: "Training",
+      description: "Live operational safety drill designed to prepare participants for emergency response and hazard mitigation in industrial settings."
+    },
+    {
+      url: training05,
+      title: "Professional Development Seminar",
+      category: "Training",
+      description: "Expert-led seminar focused on advancing professional competencies and industry best practices for career growth."
+    },
+    {
+      url: training06,
+      title: "Equipment Handling Certification",
+      category: "Training",
+      description: "Certified training on the proper handling and operation of specialized industrial equipment and machinery."
+    },
+    {
+      url: training07,
+      title: "Workplace Safety Assessment",
+      category: "Training",
+      description: "Comprehensive workplace safety assessment training covering risk evaluation, compliance standards, and preventive measures."
     },
 
     // FACILITIES
@@ -166,12 +189,7 @@ const Highlights: React.FC = () => {
     },
 
     // EVENTS
-    {
-      url: event01,
-      title: "Annual Certification Gala",
-      category: "Events",
-      description: "Celebrating the achievements of our graduates and the successful completion of our professional development programs."
-    },
+    // EVENTS
     {
       url: event02,
       title: "Global Leadership Summit",
@@ -179,34 +197,10 @@ const Highlights: React.FC = () => {
       description: "Gathering of industry leaders and corporate partners to discuss emerging trends and organizational excellence."
     },
     {
-      url: event03,
-      title: "Thinklab Networking Night",
-      category: "Events",
-      description: "Building connections between professionals, industry experts, and corporate stakeholders."
-    },
-    {
-      url: event04,
-      title: "Corporate Training Expo",
-      category: "Events",
-      description: "Showcasing our latest training modules and specialized consultancy frameworks to corporate partners."
-    },
-    {
       url: event05,
       title: "Industry Expert Workshop",
       category: "Events",
       description: "A deep-dive technical session led by global experts in industrial safety and digital transformation."
-    },
-    {
-      url: event06,
-      title: "Alumni Meet & Greet",
-      category: "Events",
-      description: "Strengthening the professional community by connecting past participants with current industry shifts."
-    },
-    {
-      url: event07,
-      title: "The Future of ESG Forum",
-      category: "Events",
-      description: "Highlighting the importance of sustainability and ethical governance in modern corporate strategy."
     },
     {
       url: event08,
@@ -231,12 +225,6 @@ const Highlights: React.FC = () => {
       title: "Safety & Health Awareness Day",
       category: "Events",
       description: "Dedicated event promoting the core principles of OSH and workplace safety across all industrial sectors."
-    },
-    {
-      url: event12,
-      title: "Thinklab Partnership Summit",
-      category: "Events",
-      description: "Exploring collaborative opportunities with regional and international partners to expand professional educational reach."
     }
   ];
 
@@ -258,82 +246,69 @@ const Highlights: React.FC = () => {
     setSelectedIndex(selectedIndex === filteredItems.length - 1 ? 0 : selectedIndex + 1);
   };
 
+  useEffect(() => {
+    if (selectedItem) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedItem]);
+
   return (
     <div className="pb-24">
       {/* Lightbox Modal */}
-      {selectedItem && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8">
+      {selectedItem && createPortal(
+        <div className="fixed inset-0 z-[100] flex items-center justify-center">
           <div
             className="fixed inset-0 bg-slate-950/95 backdrop-blur-xl animate-in fade-in duration-300"
             onClick={() => setSelectedIndex(null)}
           ></div>
 
-          <div className="relative w-full max-w-5xl bg-white shadow-2xl rounded-[2.5rem] animate-in zoom-in-95 duration-300 overflow-hidden flex flex-col md:flex-row">
-            {/* Standardized Square Image Frame with Navigation */}
-            <div className="w-full md:w-[500px] shrink-0 bg-slate-100 aspect-square relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-100 group/frame">
+          <div className="relative w-full h-full max-w-7xl mx-auto p-4 md:p-8 flex items-center justify-center animate-in zoom-in-95 duration-300 pointer-events-none">
+            {/* Fixed Size Image Container */}
+            <div className="relative pointer-events-auto w-full max-w-[900px] max-h-[600px] md:h-[600px] h-[50vh] bg-slate-900 rounded-2xl shadow-2xl overflow-hidden flex items-center justify-center">
               <img
                 src={selectedItem.url}
                 alt={selectedItem.title}
-                className="absolute inset-0 w-full h-full object-cover transition-all duration-500"
+                className="w-full h-full object-contain"
               />
-              <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.1)] pointer-events-none"></div>
 
-              {/* Navigation Arrows */}
-              <button
-                onClick={handlePrev}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all opacity-0 group-hover/frame:opacity-100 -translate-x-2 group-hover/frame:translate-x-0"
-                aria-label="Previous image"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                onClick={handleNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all opacity-0 group-hover/frame:opacity-100 translate-x-2 group-hover/frame:translate-x-0"
-                aria-label="Next image"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
-
-            {/* Info Section */}
-            <div className="flex-grow p-8 md:p-12 flex flex-col justify-between bg-white overflow-y-auto max-h-[60vh] md:max-h-auto">
-              <div>
-                <div className="flex justify-between items-start mb-6">
-                  <div>
-                    <span className="text-blue-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-2 block">
-                      {selectedItem.category}
-                    </span>
-                    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">
-                      {selectedItem.title}
-                    </h2>
-                  </div>
-                  <button
-                    onClick={() => setSelectedIndex(null)}
-                    className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-slate-900 shrink-0"
-                    aria-label="Close modal"
-                  >
-                    <X size={24} />
-                  </button>
-                </div>
-
-                <div className="pt-2">
-                  <p className="text-slate-600 leading-relaxed text-justify">
-                    {selectedItem.description}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-12 pt-8 border-t border-slate-100 flex items-center justify-between shrink-0">
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                  Thinklab Highlights &copy;
-                </div>
-                <div className="text-[10px] font-bold text-slate-900 uppercase tracking-[0.2em]">
-                  Item {(selectedIndex ?? 0) + 1} of {filteredItems.length}
-                </div>
+              {/* Category Label (Overlay) */}
+              <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full text-white/90 text-xs font-bold uppercase tracking-widest border border-white/10">
+                {selectedItem.category}
               </div>
             </div>
+
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedIndex(null)}
+              className="absolute top-6 right-6 z-50 p-2 text-white/70 hover:text-white transition-colors pointer-events-auto"
+              aria-label="Close modal"
+            >
+              <X size={32} />
+            </button>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={handlePrev}
+              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-4 bg-white/10 hover:bg-white text-white hover:text-slate-900 rounded-full transition-all backdrop-blur-md pointer-events-auto group"
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={32} className="group-hover:-translate-x-1 transition-transform" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-4 bg-white/10 hover:bg-white text-white hover:text-slate-900 rounded-full transition-all backdrop-blur-md pointer-events-auto group"
+              aria-label="Next image"
+            >
+              <ChevronRight size={32} className="group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Header */}
@@ -365,8 +340,8 @@ const Highlights: React.FC = () => {
                 setSelectedIndex(null);
               }}
               className={`px-8 py-3 rounded-2xl text-sm font-bold transition-all ${activeFilter === cat
-                  ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-400 hover:text-blue-600'
+                ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20'
+                : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-400 hover:text-blue-600'
                 }`}
             >
               {cat}
@@ -399,10 +374,6 @@ const Highlights: React.FC = () => {
                   {item.category === 'Events' && <Users size={14} />}
                   {item.category}
                 </span>
-                <h3 className="text-white text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-slate-300 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 text-justify line-clamp-3">
-                  {item.description}
-                </p>
               </div>
             </div>
           ))}

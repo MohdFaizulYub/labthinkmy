@@ -10,7 +10,7 @@ const HSECompetency: React.FC = () => {
       icon: <ShieldCheck className="w-8 h-8 text-blue-600" />,
       image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1200",
       description: "Empowering organizational leaders to cultivate a proactive safety culture that transcends compliance, making safety a core business value.",
-      points: ["Executive Safety Briefings", "Culture Maturity Assessment", "Safety KPI Development", "Behavioral Safety Leadership"]
+      points: ["Executive Safety Briefings", "Culture Maturity Assessment", "Safety Audit", "Behavioral Safety Leadership"]
     },
     {
       title: "Risk Assessment Mastery",
@@ -33,14 +33,14 @@ const HSECompetency: React.FC = () => {
       {/* Detail Hero */}
       <div className="relative bg-slate-950 py-32 overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-40">
-          <img 
-            src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=2000" 
-            alt="Industrial Safety" 
+          <img
+            src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=2000"
+            alt="Industrial Safety"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Link to="/solutions" className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors mb-12 group">
             <ArrowLeft className="mr-2 w-5 h-5 group-hover:-translate-x-1 transition-transform" /> Back to Solutions
@@ -58,8 +58,8 @@ const HSECompetency: React.FC = () => {
         {/* Stack of Alternating Horizontal Cards */}
         <div className="space-y-12">
           {pillars.map((pillar, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className={`bg-white rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/30 flex flex-col ${idx % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'} overflow-hidden group transition-all duration-500 hover:shadow-2xl`}
             >
               {/* Details Side */}
@@ -82,10 +82,10 @@ const HSECompetency: React.FC = () => {
 
               {/* Image Side */}
               <div className="md:w-2/5 lg:w-1/2 min-h-[350px] md:min-h-full relative overflow-hidden">
-                <img 
-                  src={pillar.image} 
-                  alt={pillar.title} 
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2500ms] ease-out group-hover:scale-105" 
+                <img
+                  src={pillar.image}
+                  alt={pillar.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2500ms] ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition-colors duration-1000"></div>
               </div>
@@ -103,7 +103,7 @@ const HSECompetency: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
             <div className="hidden md:block absolute top-10 left-0 right-0 h-px bg-slate-200 -z-10"></div>
-            
+
             {[
               { step: "01", title: "Gap Analysis", desc: "Rigorous audit of existing safety protocols against national and international standards." },
               { step: "02", title: "Competency Mapping", desc: "Identifying the technical safety skill gaps across your operational tiers." },

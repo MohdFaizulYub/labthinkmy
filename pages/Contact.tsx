@@ -45,8 +45,8 @@ const Contact: React.FC = () => {
                 <div>
                   <div className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">Location</div>
                   <div className="text-slate-900 font-medium leading-relaxed">
-                    Lot 1.47 Tower A, Ground Floor,<br/>
-                    Bangsar Trade Centre, Jalan Pantai Baharu,<br/>
+                    Lot 1.47 Tower A, Ground Floor,<br />
+                    Bangsar Trade Centre, Jalan Pantai Baharu,<br />
                     59200 KL
                   </div>
                 </div>
@@ -68,21 +68,28 @@ const Contact: React.FC = () => {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Organization / Company</label>
-                <input type="text" className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Tech Solutions Inc." />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Organization / Company</label>
+                  <input type="text" className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Tech Solutions Inc." />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Contact Number</label>
+                  <input type="tel" className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 transition-all" placeholder="+60" />
+                </div>
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Service of Inquiry</label>
                 <select className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 transition-all">
                   <option>Corporate program</option>
-                  <option>HSE</option>
+                  <option>HSE Competency</option>
                   <option>ESG Consultancy</option>
+                  <option>IT Consultancy</option>
                   <option>Blockchain and AI Consultancy</option>
                   <option>Branding and Digital Media</option>
                   <option>Event Management</option>
-                  <option>Sport Development</option>
+                  <option>Sports Development</option>
                   <option>Project Management</option>
                   <option>Other / General Inquiry</option>
                 </select>

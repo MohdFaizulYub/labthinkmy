@@ -110,37 +110,37 @@ const Training: React.FC = () => {
     }
   ];
 
-  const categories = ['All', 'Management', 'Health & Safety', 'ESG', 'Technology', 'Language'];
+  const categories = ['All', 'Management', 'Health & Safety', 'ESG', 'IT and Digital', 'Language'];
 
   const programs: Program[] = [
     // TECHNOLOGY CATEGORY
     {
       title: "Industrial Robotics & Automation",
-      cat: "Technology",
+      cat: "IT and Digital",
       image: industrialRoboticsImage,
       description: "An introduction to the principles, technologies, and practical applications of industrial robotics and automation in modern manufacturing and industrial environments. This course covers the fundamentals of robotic systems, automation design concepts, sensors, control systems, and smart production technologies aligned with Industry 4.0"
     },
     {
       title: "BIM Technology",
-      cat: "Technology",
+      cat: "IT and Digital",
       image: bimTechnologyImage,
       description: "A comprehensive introduction to Building Information Modelling (BIM) and its role in transforming planning, design, construction, and asset management processes. This course equips professionals with the knowledge needed to understand BIM implementation strategies, industry standards, and practical applications across the built environment sector. Participants will learn the key principles of BIM workflows, collaborative digital project environments, data integration, and model-based coordination that support improved project efficiency, accuracy, and lifecycle management."
     },
     {
       title: "Blockchain Technology",
-      cat: "Technology",
+      cat: "IT and Digital",
       image: blockchainTechnologyImage,
       description: "A practical introduction to blockchain technology, covering its core concepts, architecture, and real-world applications across industries. Participants will gain an understanding of how distributed ledger systems work, including consensus mechanisms, security principles, and emerging use cases such as healthcare management, supply chain tracking, and financial technologies."
     },
     {
       title: "Digital Transformation & Strategy",
-      cat: "Technology",
+      cat: "IT and Digital",
       image: digitalTransformationImage,
       description: "Empower professionals with the knowledge and skills required to navigate, lead, and execute digital transformation initiatives within organisations. The course focuses on leveraging emerging technologies, digital strategy development, and organisational change management to drive innovation and operational excellence."
     },
     {
       title: "Digital Literacy for Professionals",
-      cat: "Technology",
+      cat: "IT and Digital",
       image: digitalLiteracyImage,
       description: "Equip professionals with the essential digital knowledge and skills required to thrive in a technology-driven work environment. The course addresses core digital competencies, including effective digital communication, data awareness, online security, and the use of digital tools for productivity and collaboration. It is designed to enhance employee confidence, digital readiness, and overall organisational performance in the digital economy."
     },
@@ -267,8 +267,8 @@ const Training: React.FC = () => {
       {/* Training Ground Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
         <div className="mb-12">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">Training Ground</h2>
-          <p className="text-slate-600">Our physical and virtual environments are engineered for professional transformation.</p>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">Learning Hub</h2>
+          <p className="text-slate-600">Our physical and virtual environments are thoughtfully designed to foster meaningful professional transformation —empowering individuals and organisations to grow, adapt, and excel in today’s evolving landscape.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {trainingGroundItems.map((item, i) => (

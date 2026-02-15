@@ -1,19 +1,22 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Cpu, LineChart, Users, Zap } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Cpu, LineChart, Users, Zap, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import heroImage from '../assets/images/home/hero.png';
 
 // Import Highlight Images for Showcase
-import event01 from '../assets/images/highlight/event/Event 01.jpeg';
 import event02 from '../assets/images/highlight/event/Event 02.jpeg';
-import event03 from '../assets/images/highlight/event/Event 03.jpeg';
+import event05 from '../assets/images/highlight/event/Event 05.jpeg';
+import event08 from '../assets/images/highlight/event/Event 08.jpeg';
 import facility01 from '../assets/images/highlight/facilities/Facility 01.jpeg';
 import facility02 from '../assets/images/highlight/facilities/Facility 02.jpeg';
 import training01 from '../assets/images/highlight/training/Training 01.jpg';
 import training02 from '../assets/images/highlight/training/Training 02.jpg';
 
 const Home: React.FC = () => {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
   const focuses = [
     {
       icon: <LineChart className="w-8 h-8 text-blue-500" />,
@@ -38,14 +41,39 @@ const Home: React.FC = () => {
   ];
 
   const showcaseImages = [
-    { url: event01, alt: "Annual Certification Gala", span: "md:col-span-2 md:row-span-2" },
+    { url: event08, alt: "Thinklab Innovation Awards", span: "md:col-span-2 md:row-span-2" },
     { url: facility01, alt: "Main Lecture Hall", span: "" },
     { url: training01, alt: "Technical Safety Training", span: "" },
     { url: event02, alt: "Global Leadership Summit", span: "md:col-span-2" },
     { url: facility02, alt: "Collaborative Learning Hub", span: "" },
     { url: training02, alt: "Industrial Skills Workshop", span: "" },
-    { url: event03, alt: "Networking Night", span: "md:col-span-2" }
+    { url: event05, alt: "Industry Expert Workshop", span: "md:col-span-2" }
   ];
+
+  const selectedItem = selectedIndex !== null ? showcaseImages[selectedIndex] : null;
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedIndex === null) return;
+    setSelectedIndex(selectedIndex === 0 ? showcaseImages.length - 1 : selectedIndex - 1);
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedIndex === null) return;
+    setSelectedIndex(selectedIndex === showcaseImages.length - 1 ? 0 : selectedIndex + 1);
+  };
+
+  useEffect(() => {
+    if (selectedItem) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedItem]);
 
   return (
     <div className="space-y-24 pb-24">
@@ -150,27 +178,70 @@ const Home: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[200px]">
           {showcaseImages.map((img, i) => (
-            <Link
+            <div
               key={i}
-              to="/highlights"
-              className={`relative overflow-hidden rounded-2xl group ${img.span}`}
+              onClick={() => setSelectedIndex(i)}
+              className={`relative overflow-hidden rounded-2xl group cursor-pointer ${img.span}`}
             >
               <img
                 src={img.url}
                 alt={img.alt}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <div className="text-white">
-                  <p className="text-sm font-bold uppercase tracking-widest flex items-center gap-2">
-                    <Zap size={14} className="text-blue-400" /> {img.alt}
-                  </p>
-                </div>
-              </div>
-            </Link>
+              <div className="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
           ))}
         </div>
       </section>
+
+      {/* Lightbox Modal */}
+      {selectedItem && createPortal(
+        <div className="fixed inset-0 z-[100] flex items-center justify-center">
+          <div
+            className="fixed inset-0 bg-slate-950/95 backdrop-blur-xl animate-in fade-in duration-300"
+            onClick={() => setSelectedIndex(null)}
+          ></div>
+
+          <div className="relative w-full h-full max-w-7xl mx-auto p-4 md:p-8 flex items-center justify-center animate-in zoom-in-95 duration-300 pointer-events-none">
+            {/* Fixed Size Image Container */}
+            <div className="relative pointer-events-auto w-full max-w-[900px] max-h-[600px] md:h-[600px] h-[50vh] bg-slate-900 rounded-2xl shadow-2xl overflow-hidden flex items-center justify-center">
+              <img
+                src={selectedItem.url}
+                alt={selectedItem.alt}
+                className="w-full h-full object-contain"
+              />
+
+
+            </div>
+
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedIndex(null)}
+              className="absolute top-6 right-6 z-50 p-2 text-white/70 hover:text-white transition-colors pointer-events-auto"
+              aria-label="Close modal"
+            >
+              <X size={32} />
+            </button>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={handlePrev}
+              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-4 bg-white/10 hover:bg-white text-white hover:text-slate-900 rounded-full transition-all backdrop-blur-md pointer-events-auto group"
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={32} className="group-hover:-translate-x-1 transition-transform" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-4 bg-white/10 hover:bg-white text-white hover:text-slate-900 rounded-full transition-all backdrop-blur-md pointer-events-auto group"
+              aria-label="Next image"
+            >
+              <ChevronRight size={32} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        </div>,
+        document.body
+      )}
 
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,27 +1,28 @@
 import React from 'react';
 import { Target, Eye, Shield, Star, Handshake, TrendingUp, Info } from 'lucide-react';
+import heroImage from '../assets/images/home/hero.png';
 
 const About: React.FC = () => {
   const coreValues = [
-    { 
-      name: "Integrity", 
-      icon: <Shield size={24} />, 
-      desc: "Upholding the highest standards of professional ethics and transparency in all our engagements." 
+    {
+      name: "Integrity",
+      icon: <Shield size={24} />,
+      desc: "Upholding the highest standards of professional ethics and transparency in all our engagements."
     },
-    { 
-      name: "Excellence", 
-      icon: <Star size={24} />, 
-      desc: "Commitment to delivering superior quality training and consultancy that yields measurable results." 
+    {
+      name: "Excellence",
+      icon: <Star size={24} />,
+      desc: "Commitment to delivering superior quality training and consultancy that yields measurable results."
     },
-    { 
-      name: "Collaboration", 
-      icon: <Handshake size={24} />, 
-      desc: "Building strong, strategic partnerships to foster a robust and interconnected talent ecosystem." 
+    {
+      name: "Collaboration",
+      icon: <Handshake size={24} />,
+      desc: "Building strong, strategic partnerships to foster a robust and interconnected talent ecosystem."
     },
-    { 
-      name: "Empowerment", 
-      icon: <TrendingUp size={24} />, 
-      desc: "Equipping professionals with the autonomy and skills needed to lead and succeed in their fields." 
+    {
+      name: "Empowerment",
+      icon: <TrendingUp size={24} />,
+      desc: "Equipping professionals with the autonomy and skills needed to lead and succeed in their fields."
     }
   ];
 
@@ -40,14 +41,19 @@ const About: React.FC = () => {
         <section className="mb-32">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-5 relative">
-              <div className="sticky top-32">
+              <div>
                 <span className="text-blue-600 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Corporate Overview</span>
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight mb-8">
-                  Driving Organizational <br/> Excellence through <br/> Innovation.
+                  Driving Organizational <br /> Excellence through <br /> Innovation.
                 </h2>
+                <img
+                  src={heroImage}
+                  alt="Thinklab Innovation"
+                  className="w-full h-auto rounded-xl object-cover shadow-sm"
+                />
               </div>
             </div>
-            
+
             <div className="lg:col-span-7 space-y-8 text-slate-600 text-lg leading-relaxed text-justify">
               <p>
                 Thinklab is a multidisciplinary capability development and innovation hub dedicated to delivering high-impact training, consultancy, and professional competency solutions across industries. With a strong focus on future-ready skills, Thinklab integrates technology, industry expertise, and applied learning approaches to support organisations and professionals in navigating digital transformation, operational excellence, and emerging industry demands.
@@ -104,16 +110,16 @@ const About: React.FC = () => {
 
           <div className="relative">
             <div className="absolute -inset-4 bg-blue-600/5 rounded-[2.5rem] -rotate-2"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1200" 
-              alt="Thinklab Corporate Environment" 
-              className="relative rounded-3xl shadow-2xl w-full h-64 lg:h-full object-cover" 
+            <img
+              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1200"
+              alt="Thinklab Corporate Environment"
+              className="relative rounded-3xl shadow-2xl w-full h-64 lg:h-full object-cover"
             />
             <div className="absolute -bottom-8 -left-8 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 hidden md:block">
               <div className="flex items-center gap-4">
                 <div className="text-4xl font-bold text-blue-600">10+</div>
                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-tight">
-                  Years of Industry<br/>Excellence
+                  Years of Industry<br />Excellence
                 </div>
               </div>
             </div>
@@ -123,7 +129,7 @@ const About: React.FC = () => {
         {/* Core Values Section */}
         <section className="bg-slate-900 text-white rounded-[3rem] py-12 md:py-20 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-          
+
           <div className="text-center mb-16 px-4 relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-2">Core Values</h2>
             <p className="text-slate-400 mb-6">Our core values define every consulting engagement and training session.</p>
@@ -133,8 +139,8 @@ const About: React.FC = () => {
           <div className="relative z-10 px-4 md:px-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {coreValues.map((value, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-blue-500/50 transition-all duration-300 group"
                 >
                   <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">

@@ -219,7 +219,7 @@ const Solutions: React.FC = () => {
       features: [
         "Corporate Events",
         "Conferences & Exhibitions",
-        "Team Building Programs",
+        "Team Building Retreats",
         "Sports & Carnivals"
       ]
     },
@@ -231,7 +231,7 @@ const Solutions: React.FC = () => {
       features: [
         "PR & Branding",
         "ESG Consulting",
-        "Blockchain & AI Consulting",
+        "IT, AI & Blockchain Consulting",
         "Project Management"
       ]
     }

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import Logo from './Logo';
 import { DoshLogo, NioshLogo, HrdcLogo, CidbLogo, BritishCouncilLogo } from '../assets/images';
 
@@ -22,10 +22,13 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4">
               <a href="#" className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 group shadow-lg">
-                <Linkedin size={18} className="group-hover:scale-110 transition-transform" />
+                <Facebook size={18} className="group-hover:scale-110 transition-transform" />
               </a>
-              <a href="mailto:contact@thinklab.com" className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 group shadow-lg">
-                <Mail size={18} className="group-hover:scale-110 transition-transform" />
+              <a href="#" className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 group shadow-lg">
+                <Instagram size={18} className="group-hover:scale-110 transition-transform" />
+              </a>
+              <a href="#" className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 group shadow-lg">
+                <Linkedin size={18} className="group-hover:scale-110 transition-transform" />
               </a>
             </div>
           </div>
@@ -36,6 +39,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-4 text-sm">
               <li><Link to="/solutions/customized-training" className="hover:text-blue-500 transition-colors">Corporate Training</Link></li>
               <li><Link to="/solutions/hse-competency" className="hover:text-blue-500 transition-colors">HSE Competency</Link></li>
+              <li><Link to="/solutions#it-consulting" className="hover:text-blue-500 transition-colors">IT Consulting</Link></li>
               <li><Link to="/solutions#consulting-services" className="hover:text-blue-500 transition-colors">ESG Consulting</Link></li>
               <li><Link to="/solutions#event-management" className="hover:text-blue-500 transition-colors">Event Management</Link></li>
             </ul>
