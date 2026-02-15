@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { CheckCircle, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { HrdcLogo, CidbLogo, BritishCouncilLogo, DoshLogo, NioshLogo } from '../assets/images';
 import doshImage from '../assets/images/certification/dosh.png';
 import nioshImage from '../assets/images/certification/niosh.png';
@@ -26,7 +27,8 @@ const Certification: React.FC = () => {
     {
       title: "CIDB Certified Courses",
       image: cidbImage,
-      desc: "Enhance technical proficiency within the construction sector through CIDB claimable programs. We provide specialized training modules designed to meet Construction Industry Development Board standards, focusing on project management and advanced infrastructure techniques."
+      desc: "Enhance technical proficiency within the construction sector through CIDB claimable programs. We provide specialized training modules designed to meet Construction Industry Development Board standards, focusing on project management and advanced infrastructure techniques.",
+      link: "/certification/cidb-courses"
     }
   ];
 
@@ -104,9 +106,17 @@ const Certification: React.FC = () => {
                   {c.desc}
                 </p>
                 <div className="flex items-center gap-4">
-                  <button className="bg-slate-900 text-white px-10 py-4 rounded-xl font-bold hover:bg-blue-600 transition-all shadow-lg shadow-slate-900/10">
-                    Register for Program
-                  </button>
+                  {c.link ? (
+                    <Link to={c.link}>
+                      <button className="bg-slate-900 text-white px-10 py-4 rounded-xl font-bold hover:bg-blue-600 transition-all shadow-lg shadow-slate-900/10">
+                        View Courses
+                      </button>
+                    </Link>
+                  ) : (
+                    <button className="bg-slate-900 text-white px-10 py-4 rounded-xl font-bold hover:bg-blue-600 transition-all shadow-lg shadow-slate-900/10">
+                      Register for Program
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

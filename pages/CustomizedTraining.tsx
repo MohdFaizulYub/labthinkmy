@@ -2,29 +2,30 @@
 import React from 'react';
 import { ArrowLeft, Trophy, Brain, Target, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import executiveDevelopmentImg from '../assets/images/solution/Customized Training/Executive Development.png';
+import leadershipExcellenceImg from '../assets/images/solution/Customized Training/Leadership Excellence.png';
+import softSkillsMasteryImg from '../assets/images/solution/Customized Training/Soft Skills & Mastery.png';
 
 const CustomizedTraining: React.FC = () => {
   const pillars = [
     {
       title: "Executive Development",
       icon: <Target className="w-8 h-8 text-blue-600" />,
-      // Replaced with a more reliable, high-impact corporate office image
-      image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1200",
+      image: executiveDevelopmentImg,
       description: "Bespoke programs designed for C-Suite and senior management, focusing on high-stakes decision making, global market trends, and strategic organizational culture.",
       points: ["Visionary Leadership", "Crisis Management", "Stakeholder Communication", "Digital Governance"]
     },
     {
       title: "Leadership Excellence",
       icon: <Trophy className="w-8 h-8 text-blue-600" />,
-      // Replaced with a reliable team strategy/collaboration image
-      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200",
+      image: leadershipExcellenceImg,
       description: "Empowering middle management and emerging leaders with the tools to scale operations, manage high-performance teams, and bridge the gap between strategy and execution.",
       points: ["Conflict Resolution", "Performance Coaching", "Agile Project Delivery", "Inclusion & Diversity"]
     },
     {
       title: "Soft Skills & Mastery",
       icon: <Brain className="w-8 h-8 text-blue-600" />,
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200",
+      image: softSkillsMasteryImg,
       description: "Developing the essential interpersonal competencies that drive workplace harmony and individual productivity in a hybrid, digital-first world.",
       points: ["Emotional Intelligence", "Advanced Negotiation", "Persuasive Presentation", "Time Management"]
     }

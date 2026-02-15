@@ -2,27 +2,30 @@
 import React from 'react';
 import { ArrowLeft, ShieldCheck, Zap, Activity, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import safetyLeadershipImg from '../assets/images/solution/HSE Competency/Safety Leadership Frameworks.png';
+import riskAssessmentImg from '../assets/images/solution/HSE Competency/Risk Assessment Mastery.png';
+import environmentalGovernanceImg from '../assets/images/solution/HSE Competency/Environmental Governance.png';
 
 const HSECompetency: React.FC = () => {
   const pillars = [
     {
       title: "Safety Leadership Frameworks",
       icon: <ShieldCheck className="w-8 h-8 text-blue-600" />,
-      image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1200",
+      image: safetyLeadershipImg,
       description: "Empowering organizational leaders to cultivate a proactive safety culture that transcends compliance, making safety a core business value.",
       points: ["Executive Safety Briefings", "Culture Maturity Assessment", "Safety Audit", "Behavioral Safety Leadership"]
     },
     {
       title: "Risk Assessment Mastery",
       icon: <AlertTriangle className="w-8 h-8 text-blue-600" />,
-      image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=1200",
+      image: riskAssessmentImg,
       description: "Advanced technical methodology for identifying, analyzing, and mitigating operational risks in high-stakes industrial and commercial environments.",
       points: ["HIRARC Specialization", "Process Safety Management", "Emergency Preparedness", "ISO 45001 Implementation"]
     },
     {
       title: "Environmental Governance",
       icon: <Activity className="w-8 h-8 text-blue-600" />,
-      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=1200",
+      image: environmentalGovernanceImg,
       description: "Ensuring total alignment with global ESG benchmarks and regional environmental regulations through rigorous auditing and strategic planning.",
       points: ["ESG Compliance Auditing", "Waste Management Strategy", "Carbon Footprint Analysis", "Environmental Impact Studies"]
     }

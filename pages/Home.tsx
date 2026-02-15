@@ -9,8 +9,9 @@ import heroImage from '../assets/images/home/hero.png';
 import event02 from '../assets/images/highlight/event/Event 02.jpeg';
 import event05 from '../assets/images/highlight/event/Event 05.jpeg';
 import event08 from '../assets/images/highlight/event/Event 08.jpeg';
-import facility01 from '../assets/images/highlight/facilities/Facility 01.jpeg';
-import facility02 from '../assets/images/highlight/facilities/Facility 02.jpeg';
+import facility03 from '../assets/images/highlight/facilities/Facility 03.jpeg';
+import facility04 from '../assets/images/highlight/facilities/Facility 04.png';
+
 import training01 from '../assets/images/highlight/training/Training 01.jpg';
 import training02 from '../assets/images/highlight/training/Training 02.jpg';
 
@@ -42,12 +43,12 @@ const Home: React.FC = () => {
 
   const showcaseImages = [
     { url: event08, alt: "Thinklab Innovation Awards", span: "md:col-span-2 md:row-span-2" },
-    { url: facility01, alt: "Main Lecture Hall", span: "" },
     { url: training01, alt: "Technical Safety Training", span: "" },
+    { url: facility03, alt: "Advanced Computer Lab", span: "" },
     { url: event02, alt: "Global Leadership Summit", span: "md:col-span-2" },
-    { url: facility02, alt: "Collaborative Learning Hub", span: "" },
     { url: training02, alt: "Industrial Skills Workshop", span: "" },
-    { url: event05, alt: "Industry Expert Workshop", span: "md:col-span-2" }
+    { url: event05, alt: "Industry Expert Workshop", span: "md:col-span-2" },
+    { url: facility04, alt: "Thinklab Innovation Center", span: "" }
   ];
 
   const selectedItem = selectedIndex !== null ? showcaseImages[selectedIndex] : null;

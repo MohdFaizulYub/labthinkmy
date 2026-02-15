@@ -8,12 +8,22 @@ import eventManagementImage from '../assets/images/solution/Event Management.png
 import consultingServicesImage from '../assets/images/solution/Consulting Services.png';
 
 // Popup images
-import propertyDevelopmentImg from '../assets/images/popup-images/Property Development.png';
-import solarSystemsImg from '../assets/images/popup-images/Solar Systems.png';
-import wasteToEnergyImg from '../assets/images/popup-images/Waste to Energy.png';
-import sportsComplexImg from '../assets/images/popup-images/Sport Complex.png';
-import tinyHome1Img from '../assets/images/popup-images/Prefabricated Tiny Home 1.jpeg';
-import tinyHome2Img from '../assets/images/popup-images/Prefabricated Tiny Home 2.jpeg';
+import propertyDevelopmentImg from '../assets/images/solution/Consulting Services/Project Management/Property Development.png';
+import solarSystemsImg from '../assets/images/solution/Consulting Services/Project Management/Solar Systems.png';
+import wasteToEnergyImg from '../assets/images/solution/Consulting Services/Project Management/Waste to Energy.png';
+import sportsComplexImg from '../assets/images/solution/Consulting Services/Project Management/Sport Complex.png';
+import smartCityImg from '../assets/images/solution/Consulting Services/Project Management/Smart City.png';
+import greenBuildingImg from '../assets/images/solution/Consulting Services/Project Management/Green Building.png';
+import tinyHome1Img from '../assets/images/solution/Consulting Services/Project Management/Prefabricated Tiny Home 1.jpeg';
+import tinyHome2Img from '../assets/images/solution/Consulting Services/Project Management/Prefabricated Tiny Home 2.jpeg';
+
+// Corporate Event images
+import corporateGalaDinnerImg from '../assets/images/solution/Event Management/Corporate Event/Corporate Gala Dinner.png';
+import techInnovationExpoImg from '../assets/images/solution/Event Management/Corporate Event/Tech Innovation Expo.png';
+import strategicWorkshopImg from '../assets/images/solution/Event Management/Corporate Event/Strategic Workshop.png';
+import productLaunchEventImg from '../assets/images/solution/Event Management/Corporate Event/Product Launch Event.png';
+import sustainabilityCampaignImg from '../assets/images/solution/Event Management/Corporate Event/Sustainability Campaign.png';
+import townHallMeetingImg from '../assets/images/solution/Event Management/Corporate Event/Town Hall Meeting.png';
 
 interface ShowcaseProps {
   onClose: () => void;
@@ -82,34 +92,8 @@ const ShowcasePopup: React.FC<{ onClose: () => void; title: string; projects: an
             {projects.map((p, idx) => (
               <div
                 key={idx}
-                className={`relative group/proj overflow-hidden bg-slate-100 rounded-none cursor-pointer ${idx === 4 ? 'col-span-2 aspect-[2/1]' : 'aspect-square'}`}
+                className="relative group/proj overflow-hidden bg-slate-100 rounded-none cursor-pointer aspect-square"
               >
-                {idx === 4 && p.imgs ? (
-                  <div className="flex flex-row h-full w-full">
-                    {p.imgs.map((url: string, i: number) => (
-                      <div
-                        key={i}
-                        className="relative flex-1 overflow-hidden border-r border-slate-900/5 last:border-none group/subitem"
-                        onClick={(e) => { e.stopPropagation(); setPreviewImage(url); }}
-                      >
-                        <img
-                          src={url}
-                          alt={`${p.title} view ${i + 1}`}
-                          className="w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover/subitem:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-blue-600/20 opacity-0 group-hover/subitem:opacity-100 transition-opacity flex items-center justify-center">
-                          <Maximize2 className="text-white w-6 h-6" />
-                        </div>
-                        {i === 0 && (
-                          <div className="absolute top-8 left-8 z-10">
-                            <span className="text-blue-400 text-[10px] font-bold uppercase tracking-[0.4em] mb-2 block">Thinklab</span>
-                            <span className="text-white text-2xl font-bold uppercase tracking-[0.2em] drop-shadow-lg">{p.title}</span>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
                   <div className="w-full h-full" onClick={() => setPreviewImage(p.img || null)}>
                     <img
                       src={p.img}
@@ -128,7 +112,6 @@ const ShowcasePopup: React.FC<{ onClose: () => void; title: string; projects: an
                       </div>
                     </div>
                   </div>
-                )}
               </div>
             ))}
           </div>
@@ -166,26 +149,21 @@ const Solutions: React.FC = () => {
   const projectPortfolio = [
     { title: "Property Development", img: propertyDevelopmentImg },
     { title: "Solar Systems", img: solarSystemsImg },
-    { title: "Waste-to-Energy", img: wasteToEnergyImg },
+    { title: "Waste-to-energy", img: wasteToEnergyImg },
     { title: "Sports Complex", img: sportsComplexImg },
-    {
-      title: "Prefabricated Tiny Home",
-      imgs: [tinyHome1Img, tinyHome2Img]
-    },
+    { title: "Prefabricated Tiny Home", img: tinyHome1Img },
+    { title: "Prefabricated Tiny Home", img: tinyHome2Img },
+    { title: "Smart City", img: smartCityImg },
+    { title: "Green Building", img: greenBuildingImg },
   ];
 
   const eventPortfolio = [
-    { title: "Corporate Gala Dinner", img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200" },
-    { title: "Tech Innovation Expo", img: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=1200" },
-    { title: "Strategic Workshop", img: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200" },
-    { title: "Product Launch Event", img: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=1200" },
-    {
-      title: "Global Leadership Summit",
-      imgs: [
-        "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1540575861501-7ad060e39fe5?auto=format&fit=crop&q=80&w=1000"
-      ]
-    },
+    { title: "Corporate Gala Dinner", img: corporateGalaDinnerImg },
+    { title: "Tech Innovation Expo", img: techInnovationExpoImg },
+    { title: "Strategic Workshop", img: strategicWorkshopImg },
+    { title: "Product Launch Event", img: productLaunchEventImg },
+    { title: "Sustainability Campaign", img: sustainabilityCampaignImg },
+    { title: "Town Hall Meeting", img: townHallMeetingImg },
   ];
 
   const solutions = [

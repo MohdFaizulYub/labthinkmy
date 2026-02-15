@@ -13,15 +13,14 @@ import event10 from '../assets/images/highlight/event/Event 10.jpeg';
 import event11 from '../assets/images/highlight/event/Event 11.jpeg';
 
 // Facilities Images
-import facility01 from '../assets/images/highlight/facilities/Facility 01.jpeg';
-import facility02 from '../assets/images/highlight/facilities/Facility 02.jpeg';
+
 import facility03 from '../assets/images/highlight/facilities/Facility 03.jpeg';
-import facility04 from '../assets/images/highlight/facilities/Facility 04.jpeg';
+import facility04 from '../assets/images/highlight/facilities/Facility 04.png';
 import facility06 from '../assets/images/highlight/facilities/Facility 06.jpeg';
 import facility07 from '../assets/images/highlight/facilities/Facility 07.jpeg';
 import facility08 from '../assets/images/highlight/facilities/Facility 08.jpeg';
 import facility09 from '../assets/images/highlight/facilities/Facility 09.jpeg';
-import facility10 from '../assets/images/highlight/facilities/Facility 10.jpg';
+
 import facility11 from '../assets/images/highlight/facilities/Facility 11.jpeg';
 import facility12 from '../assets/images/highlight/facilities/Facility 12.jpg';
 import facility13 from '../assets/images/highlight/facilities/Facility 13.jpg';
@@ -34,7 +33,7 @@ import training01 from '../assets/images/highlight/training/Training 01.jpg';
 import training02 from '../assets/images/highlight/training/Training 02.jpg';
 import training03 from '../assets/images/highlight/training/Training 03.jpeg';
 import training04 from '../assets/images/highlight/training/Training 04.jpeg';
-import training05 from '../assets/images/highlight/training/Training 05.jpeg';
+
 import training06 from '../assets/images/highlight/training/Training 06.jpeg';
 import training07 from '../assets/images/highlight/training/Training 07.jpeg';
 
@@ -77,12 +76,7 @@ const Highlights: React.FC = () => {
       category: "Training",
       description: "Live operational safety drill designed to prepare participants for emergency response and hazard mitigation in industrial settings."
     },
-    {
-      url: training05,
-      title: "Professional Development Seminar",
-      category: "Training",
-      description: "Expert-led seminar focused on advancing professional competencies and industry best practices for career growth."
-    },
+
     {
       url: training06,
       title: "Equipment Handling Certification",
@@ -97,18 +91,7 @@ const Highlights: React.FC = () => {
     },
 
     // FACILITIES
-    {
-      url: facility01,
-      title: "Main Lecture Hall",
-      category: "Facilities",
-      description: "State-of-the-art smart classroom with hybrid learning capabilities."
-    },
-    {
-      url: facility02,
-      title: "Collaborative Learning Hub",
-      category: "Facilities",
-      description: "An open, multi-functional space designed for group discussions and interactive group activities."
-    },
+
     {
       url: facility03,
       title: "Advanced Computer Lab",
@@ -145,12 +128,7 @@ const Highlights: React.FC = () => {
       category: "Facilities",
       description: "Specialized environment for evaluating hands-on technical competencies and safety practices."
     },
-    {
-      url: facility10,
-      title: "Thinklab Main Lobby",
-      category: "Facilities",
-      description: "Professional welcoming area designed for reception and initial briefing for program participants."
-    },
+
     {
       url: facility11,
       title: "Multimedia Briefing Room",
@@ -188,7 +166,6 @@ const Highlights: React.FC = () => {
       description: "Management and coordination offices for all Thinklab training and programs."
     },
 
-    // EVENTS
     // EVENTS
     {
       url: event02,

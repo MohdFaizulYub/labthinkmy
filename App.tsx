@@ -10,6 +10,7 @@ import CustomizedTraining from './pages/CustomizedTraining';
 import HSECompetency from './pages/HSECompetency';
 import Training from './pages/Training';
 import Certification from './pages/Certification';
+import CIDBCourses from './pages/CIDBCourses';
 import Highlights from './pages/Highlights';
 import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
@@ -33,6 +34,7 @@ const AppContent: React.FC = () => {
           <Route path="/solutions/hse-competency" element={<div className="pt-20"><HSECompetency /></div>} />
           <Route path="/training" element={<div className="pt-20"><Training /></div>} />
           <Route path="/certification" element={<div className="pt-20"><Certification /></div>} />
+          <Route path="/certification/cidb-courses" element={<div className="pt-20"><CIDBCourses /></div>} />
           <Route path="/highlights" element={<div className="pt-20"><Highlights /></div>} />
           <Route path="/contact" element={<div className="pt-20"><Contact /></div>} />
         </Routes>
