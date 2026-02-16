@@ -25,7 +25,7 @@ const Contact: React.FC = () => {
                   <div className="p-3 bg-blue-100 rounded-xl text-blue-600"><Mail size={20} /></div>
                   <div>
                     <div className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">Email</div>
-                    <div className="text-slate-900 font-medium">contact@thinklab.com</div>
+                    <div className="text-slate-900 font-medium">admin@thinklabkl.com</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -39,15 +39,15 @@ const Contact: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold text-slate-900 mb-6">Global Headquarters</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-6">Training Centre</h3>
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-blue-100 rounded-xl text-blue-600"><MapPin size={20} /></div>
                 <div>
-                  <div className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">Location</div>
+                  <div className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">Thinklab Head Office</div>
                   <div className="text-slate-900 font-medium leading-relaxed">
                     Lot 1.47 Tower A, Ground Floor,<br />
                     Bangsar Trade Centre, Jalan Pantai Baharu,<br />
-                    59200 KL
+                    59200 Kuala Lumpur, Malaysia
                   </div>
                 </div>
               </div>
@@ -91,6 +91,7 @@ const Contact: React.FC = () => {
                   <option>Event Management</option>
                   <option>Sports Development</option>
                   <option>Project Management</option>
+                  <option>Training Space Rental</option>
                   <option>Other / General Inquiry</option>
                 </select>
               </div>
@@ -105,6 +106,26 @@ const Contact: React.FC = () => {
               </button>
             </form>
           </div>
+        </div>
+      </div>
+
+      {/* Map Section */}
+      <div className="pt-16 bg-slate-50">
+        <div className="text-center mb-8 px-4">
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">Visit Our Location</h2>
+
+        </div>
+        <div className="w-full">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15935.168123456789!2d101.66942123503894!3d3.115049882078802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwMDYnNTQuMiJOIDEwMcKwNDAnMDkuOSJF!5e0!3m2!1sen!2smy!4v1704067200000!5m2!1sen!2smy"
+            width="100%"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full"
+          ></iframe>
         </div>
       </div>
     </div>

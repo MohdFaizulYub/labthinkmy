@@ -400,7 +400,7 @@ const Training: React.FC = () => {
       description: "The IELTS and TEFL Preparation Course offers structured training in English language proficiency and teaching methodology. The programme supports participants in meeting international language assessment requirements while developing essential competencies for English language instruction in diverse educational contexts. Learners will develop strategic language and test performance skills across Listening, Reading, Writing, and Speaking, enabling them to meet required band scores for overseas postings, postgraduate study, and regulatory or migration requirements."
     },
     {
-      title: "Professional Proofreading Services",
+      title: "Professional Proofreading",
       cat: "Language",
       image: proofreadingImage,
       description: "Our Professional Proofreading Service ensures your documents are refined, error-free, and aligned with industry standards. We review and enhance: (i) Business reports and proposals (ii) Corporate communications and policy documents (iii) Academic papers and research manuscripts (iv) Marketing materials and website content (v) Tender submissions and official correspondence.\n\nWe also refine sentence structure to improve readability and professional tone. This professional service is suitable for organisations and individuals seeking to: (i) Enhance document credibility and professionalism (ii) Reduce reputational risk from language errors (iii) Improve clarity and impact of key communications (iv) Strengthen submissions for publication, accreditation, or tender processes.\n\nSuitable for corporate teams, executives, researchers, consultants, and professionals who require high-quality written communication."

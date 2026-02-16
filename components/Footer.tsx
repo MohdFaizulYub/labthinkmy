@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-center group">
                 <Mail className="mr-4 w-5 h-5 text-blue-500 shrink-0 group-hover:scale-110 transition-transform" />
-                <span>contact@thinklab.com</span>
+                <span>admin@thinklabkl.com</span>
               </li>
             </ul>
           </div>

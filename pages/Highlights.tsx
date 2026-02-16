@@ -20,7 +20,7 @@ import facility06 from '../assets/images/highlight/facilities/Facility 06.jpeg';
 import facility07 from '../assets/images/highlight/facilities/Facility 07.jpeg';
 import facility08 from '../assets/images/highlight/facilities/Facility 08.jpeg';
 import facility09 from '../assets/images/highlight/facilities/Facility 09.jpeg';
-
+import facility10 from '../assets/images/highlight/facilities/Facility 10.jpeg';
 import facility11 from '../assets/images/highlight/facilities/Facility 11.jpeg';
 import facility12 from '../assets/images/highlight/facilities/Facility 12.jpg';
 import facility13 from '../assets/images/highlight/facilities/Facility 13.jpg';
@@ -128,7 +128,12 @@ const Highlights: React.FC = () => {
       category: "Facilities",
       description: "Specialized environment for evaluating hands-on technical competencies and safety practices."
     },
-
+    {
+      url: facility10,
+      title: "Collaborative Workspace",
+      category: "Facilities",
+      description: "Flexible workspace designed for team collaboration and group learning activities."
+    },
     {
       url: facility11,
       title: "Multimedia Briefing Room",

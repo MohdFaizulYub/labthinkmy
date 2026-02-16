@@ -211,7 +211,7 @@ const Solutions: React.FC = () => {
         "ESG Consulting",
         "IT, AI & Blockchain Consulting",
         "Project Management",
-        "Professional Proofreading Services"
+        "Professional Proofreading"
       ]
     }
   ];
@@ -265,7 +265,7 @@ const Solutions: React.FC = () => {
                   {s.features.map((f, j) => {
                     const isProjectManagement = f === "Project Management" && s.title === "Consulting Services";
                     const isCorporateEvents = f === "Corporate Events" && s.title === "Event Management";
-                    const isProofreading = f === "Professional Proofreading Services" && s.title === "Consulting Services";
+                    const isProofreading = f === "Professional Proofreading" && s.title === "Consulting Services";
 
                     const isInteractive = isProjectManagement || isCorporateEvents || isProofreading;
 
