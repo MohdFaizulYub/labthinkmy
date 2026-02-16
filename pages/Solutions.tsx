@@ -210,7 +210,8 @@ const Solutions: React.FC = () => {
         "PR & Branding",
         "ESG Consulting",
         "IT, AI & Blockchain Consulting",
-        "Project Management"
+        "Project Management",
+        "Professional Proofreading Services"
       ]
     }
   ];
@@ -264,8 +265,9 @@ const Solutions: React.FC = () => {
                   {s.features.map((f, j) => {
                     const isProjectManagement = f === "Project Management" && s.title === "Consulting Services";
                     const isCorporateEvents = f === "Corporate Events" && s.title === "Event Management";
+                    const isProofreading = f === "Professional Proofreading Services" && s.title === "Consulting Services";
 
-                    const isInteractive = isProjectManagement || isCorporateEvents;
+                    const isInteractive = isProjectManagement || isCorporateEvents || isProofreading;
 
                     return (
                       <li
@@ -277,9 +279,18 @@ const Solutions: React.FC = () => {
                         }}
                       >
                         <Zap size={16} className={`mr-3 shrink-0 ${isInteractive ? 'text-blue-600 animate-pulse' : 'text-blue-500'}`} />
-                        <span className={`text-sm font-medium ${isInteractive ? 'text-blue-700 border-b border-dashed border-blue-200 pb-0.5' : ''}`}>
-                          {f}
-                        </span>
+                        {isProofreading ? (
+                          <Link
+                            to="/training#Language"
+                            className="text-sm font-medium text-blue-700 border-b border-dashed border-blue-200 pb-0.5 hover:text-blue-800 transition-colors"
+                          >
+                            {f}
+                          </Link>
+                        ) : (
+                          <span className={`text-sm font-medium ${isInteractive ? 'text-blue-700 border-b border-dashed border-blue-200 pb-0.5' : ''}`}>
+                            {f}
+                          </span>
+                        )}
                         {isInteractive && (
                           <ExternalLink size={12} className="ml-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                         )}

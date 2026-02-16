@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Clock, Layers, Laptop, Shield, UserCheck, Microscope, Zap, ChevronDown, ChevronUp, CheckCircle2, Users, Target } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Clock, Layers, Laptop, Shield, UserCheck, Microscope, Zap, ChevronDown, ChevronUp, CheckCircle2, Target } from 'lucide-react';
 import industrySpecificImage from '../assets/images/training/Industry-Specific Training.png';
 import immersiveLearningImage from '../assets/images/training/Immersive Learning.png';
 import handsOnPracticeImage from '../assets/images/training/Hands-On Practice.png';
@@ -42,6 +43,7 @@ import changeManagementImage from '../assets/images/training/course-image/manage
 import languageCorporateImage from '../assets/images/training/course-image/language/Language Program for Corporate.png';
 import languageStudentsImage from '../assets/images/training/course-image/language/Language Program for Students.png';
 import ieltsTeflImage from '../assets/images/training/course-image/language/IELTS & TEFL Preparation Course.png';
+import proofreadingImage from '../assets/images/training/course-image/language/Professional Proofreading Services.png';
 
 interface Program {
   title: string;
@@ -50,63 +52,55 @@ interface Program {
   description: string;
 }
 
+interface ParagraphSection {
+  text: string;
+  bullets: string[];
+}
+
 interface ParsedDescription {
-  overview: string;
-  keyPoints: string[];
-  targetAudience: string[];
+  sections: ParagraphSection[];
 }
 
 const parseDescription = (description: string): ParsedDescription => {
-  // Split by common patterns that indicate sections
   const result: ParsedDescription = {
-    overview: '',
-    keyPoints: [],
-    targetAudience: []
+    sections: []
   };
 
   // Clean up the description
   let cleanDesc = description.trim();
 
-  // Extract target audience (usually starts with "Suitable for" or contains "ideal for")
-  const targetMatch = cleanDesc.match(/Suitable for[\s\S]*?(?=\.|$)/i);
-  if (targetMatch) {
-    result.targetAudience = targetMatch[0]
-      .replace(/Suitable for/i, '')
-      .split(/,|and/)
-      .map(s => s.trim())
-      .filter(s => s.length > 0);
-    cleanDesc = cleanDesc.replace(targetMatch[0], '');
-  }
+  // NOTE: Target audience extraction removed - "Suitable for" now displays as regular paragraph text
+  // This keeps the description flow consistent across all courses
 
-  // Look for numbered/bulleted items (i), (ii), (iii), etc. or 1., 2., 3.
-  const bulletPattern = /\(([i|v|x]+)\)\s*([^()]+?)(?=\([ivx]+\)|Ideal for|Suitable for|Target audience|$)/gi;
-  const bulletMatches = [...cleanDesc.matchAll(bulletPattern)];
+  // Split by double newlines to get paragraphs
+  const paragraphs = cleanDesc.split(/\n\n+/);
 
-  if (bulletMatches.length > 0) {
-    bulletMatches.forEach(match => {
-      result.keyPoints.push(match[2].trim());
-    });
-    // Remove bullet points from overview
-    cleanDesc = cleanDesc.replace(bulletPattern, '');
-  }
+  // Process each paragraph to extract text and bullets
+  paragraphs.forEach(paragraph => {
+    const section: ParagraphSection = {
+      text: '',
+      bullets: []
+    };
 
-  // Look for "Ideal for" or similar phrases that list benefits
-  const idealMatch = cleanDesc.match(/Ideal for[\s\S]*?:/i);
-  if (idealMatch && result.keyPoints.length === 0) {
-    const afterIdeal = cleanDesc.substring(cleanDesc.indexOf(idealMatch[0]) + idealMatch[0].length);
-    const benefits = afterIdeal.split(/\(\s*[i|v|x]+\s*\)/).filter(s => s.trim());
-    benefits.forEach(b => {
-      const clean = b.trim().replace(/[.,]$/, '');
-      if (clean.length > 10) result.keyPoints.push(clean);
-    });
-    cleanDesc = cleanDesc.substring(0, cleanDesc.indexOf(idealMatch[0]));
-  }
+    // Extract bullet points from this paragraph
+    const bulletPattern = /\(([i|v|x]+)\)\s*([^()]+?)(?=\([ivx]+\)|$)/gi;
+    const bulletMatches = [...paragraph.matchAll(bulletPattern)];
 
-  // Remaining text is overview
-  result.overview = cleanDesc
-    .replace(/\s+/g, ' ')
-    .trim()
-    .replace(/[.,]$/, '');
+    if (bulletMatches.length > 0) {
+      bulletMatches.forEach(match => {
+        section.bullets.push(match[2].trim());
+      });
+      // Remove bullet points from text
+      paragraph = paragraph.replace(bulletPattern, '');
+    }
+
+    // Clean up the remaining text
+    section.text = paragraph.replace(/\s+/g, ' ').trim();
+
+    if (section.text.length > 0 || section.bullets.length > 0) {
+      result.sections.push(section);
+    }
+  });
 
   return result;
 };
@@ -138,55 +132,32 @@ const ProgramCard: React.FC<{ program: Program }> = ({ program }) => {
 
         {/* Description Content - Shows 4 lines when collapsed */}
         <div className={`${isExpanded ? '' : 'line-clamp-4'} mb-4`}>
-          {/* Overview */}
-          {parsed.overview && (
-            <p className="text-slate-600 text-sm leading-relaxed mb-3">
-              {parsed.overview}
-            </p>
-          )}
-
-          {/* Key Points / Benefits */}
-          {parsed.keyPoints.length > 0 && (
-            <div className="mb-3">
-              <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <Target size={14} className="text-blue-500" />
-                Key Benefits
-              </h4>
-              <ul className="space-y-1.5">
-                {parsed.keyPoints.slice(0, isExpanded ? undefined : 2).map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-sm text-slate-600">
-                    <CheckCircle2 size={14} className="text-blue-500 mt-0.5 shrink-0" />
-                    <span className="leading-relaxed">{point}</span>
-                  </li>
-                ))}
-              </ul>
+          {/* Sections - Each paragraph with its bullets */}
+          {parsed.sections.length > 0 && (
+            <div className="space-y-3">
+              {parsed.sections.map((section, idx) => (
+                <div key={idx}>
+                  {section.text && (
+                    <p className="text-slate-600 text-sm leading-relaxed mb-2">
+                      {section.text}
+                    </p>
+                  )}
+                  {section.bullets.length > 0 && (
+                    <ul className="space-y-1.5">
+                      {section.bullets.map((point, bulletIdx) => (
+                        <li key={bulletIdx} className="flex items-start gap-2 text-sm text-slate-600">
+                          <CheckCircle2 size={14} className="text-blue-500 mt-0.5 shrink-0" />
+                          <span className="leading-relaxed">{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
             </div>
           )}
 
-          {/* Target Audience */}
-          {parsed.targetAudience.length > 0 && (
-            <div>
-              <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <Users size={14} className="text-blue-500" />
-                Suitable For
-              </h4>
-              <div className="flex flex-wrap gap-1.5">
-                {parsed.targetAudience.slice(0, 3).map((audience, idx) => (
-                  <span 
-                    key={idx} 
-                    className="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full"
-                  >
-                    {audience}
-                  </span>
-                ))}
-                {parsed.targetAudience.length > 3 && (
-                  <span className="px-2 py-0.5 bg-slate-100 text-slate-500 text-xs rounded-full">
-                    +{parsed.targetAudience.length - 3} more
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
+          {/* Target Audience - Removed, now displays as regular paragraph text */}
         </div>
 
         {/* Read More / Less Toggle - Always visible at bottom */}
@@ -206,7 +177,23 @@ const ProgramCard: React.FC<{ program: Program }> = ({ program }) => {
 };
 
 const Training: React.FC = () => {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('All');
+
+  // Check URL hash on mount to set initial active tab
+  useEffect(() => {
+    const hash = location.hash.replace('#', '');
+    if (hash === 'Language') {
+      setActiveTab('Language');
+      // Scroll to courses section after a short delay to ensure render
+      setTimeout(() => {
+        const coursesSection = document.getElementById('courses-catalog');
+        if (coursesSection) {
+          coursesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [location]);
 
   const trainingGroundItems = [
     {
@@ -264,37 +251,37 @@ const Training: React.FC = () => {
       title: "Cybersecurity Awareness & PDPA Compliance Training",
       cat: "IT and Digital",
       image: cybersecurityPdpaImage,
-      description: "This practical and industry-focused training equips employees with the knowledge and awareness needed to protect organisational data and comply with Malaysia's Personal Data Protection Act (PDPA) 2010. Participants will learn how to identify and prevent common cyber threats such as phishing, ransomware, malware, social engineering, and insider risks. The programme also emphasizes on PDPA data protection principles, responsibilities of data users and employees, managing personal data securely and reducing organisational legal and reputational risks. Through real-life case studies and interactive scenarios, employees will understand their role in safeguarding company information and maintaining regulatory compliance. This training is ideal for private companies seeking to: (i) Strengthen internal data protection practices (ii) Reduce cyber risk exposure (iii) Enhance PDPA compliance readiness (iv) Build a proactive security culture across the organisation"
+      description: "This practical and industry-focused training equips employees with the knowledge and awareness needed to protect organisational data and comply with Malaysia's Personal Data Protection Act (PDPA) 2010.\n\nParticipants will learn how to identify and prevent common cyber threats such as phishing, ransomware, malware, social engineering, and insider risks. The programme also emphasizes on PDPA data protection principles, responsibilities of data users and employees, managing personal data securely and reducing organisational legal and reputational risks.\n\nThrough real-life case studies and interactive scenarios, employees will understand their role in safeguarding company information and maintaining regulatory compliance. This training is ideal for private companies seeking to: (i) Strengthen internal data protection practices (ii) Reduce cyber risk exposure (iii) Enhance PDPA compliance readiness (iv) Build a proactive security culture across the organisation"
     },
     {
       title: "Statistics For Data Analytics With Python",
       cat: "IT and Digital",
       image: statisticsPythonImage,
-      description: "Statistics with Data Analytics with Python introduces fundamental statistical concepts and techniques essential for data analysis. Participants will learn to apply these skills using Python, one of the world's most in-demand programming tools to interpret and visualize data effectively. Participants will also learn how to apply key statistical concepts for business decision-making, analyse and interpret real-world datasets, perform data cleaning, visualisation, and exploratory data analysis, generate insights using Python libraries and present data findings clearly to support strategic decisions. The course combines foundational statistics with applied analytics, ensuring participants not only understand the theory but can confidently apply it in workplace scenarios. It is ideal for organisations seeking to: (i) Strengthen data-driven decision-making (ii) Upskill teams in analytics and digital competencies (iii) Improve operational efficiency through data insights (iv) Support digital transformation initiatives. Suitable for executives, analysts, engineers, managers, and professionals with little to intermediate experience in statistics or coding."
+      description: "Statistics with Data Analytics with Python introduces fundamental statistical concepts and techniques essential for data analysis. Participants will learn to apply these skills using Python, one of the world's most in-demand programming tools to interpret and visualize data effectively.\n\nParticipants will also learn how to apply key statistical concepts for business decision-making, analyse and interpret real-world datasets, perform data cleaning, visualisation, and exploratory data analysis, generate insights using Python libraries and present data findings clearly to support strategic decisions.\n\nThe course combines foundational statistics with applied analytics, ensuring participants not only understand the theory but can confidently apply it in workplace scenarios. It is ideal for organisations seeking to: (i) Strengthen data-driven decision-making (ii) Upskill teams in analytics and digital competencies (iii) Improve operational efficiency through data insights (iv) Support digital transformation initiatives.\n\nSuitable for executives, analysts, engineers, managers, and professionals with little to intermediate experience in statistics or coding."
     },
     {
       title: "AI for ALL: Real-World Applications for Every Role",
       cat: "IT and Digital",
       image: aiForAllImage,
-      description: "This course demystifies AI concepts and showcases practical applications across industries and job roles. Participants will explore tools and case studies to understand how AI can enhance productivity and decision making. This practical training demonstrates how AI can be applied across departments such as in HR, finance, marketing, operations, customer service, and management, regardless of technical background. Ideal for organisations seeking to: (i) Accelerate digital transformation initiatives (ii) Improve workforce productivity through AI adoption (iii) Build AI awareness across all levels of the organisation (iv) Foster innovation while maintaining responsible AI governance. Suitable for executives, managers, administrative staff, and professionals from all functions. No technical background required."
+      description: "This course demystifies AI concepts and showcases practical applications across industries and job roles. Participants will explore tools and case studies to understand how AI can enhance productivity and decision making. This practical training demonstrates how AI can be applied across departments such as in HR, finance, marketing, operations, customer service, and management, regardless of technical background.\n\nIdeal for organisations seeking to: (i) Accelerate digital transformation initiatives (ii) Improve workforce productivity through AI adoption (iii) Build AI awareness across all levels of the organisation (iv) Foster innovation while maintaining responsible AI governance.\n\nSuitable for executives, managers, administrative staff, and professionals from all functions. No technical background required."
     },
     {
       title: "Getting Started with Microsoft Power BI",
       cat: "IT and Digital",
       image: powerBiImage,
-      description: "Connects and transform data from various sources, build interactive reports and dashboards, learn core DAX functions, and publish and share insights securely. By the end, participants confidently create professional data-driven visuals that deliver real business impact. Key learning areas include; importing and cleaning data from multiple sources, data visualisation best practices, track key performance indicators (KPIs) and understanding basic data modelling concepts. This course is suitable for organisations aiming to strengthen data-driven decision-making, improve reporting efficiency, and enhance business performance visibility. Suitable for managers, analysts, finance personnel, HR teams, operations staff, and professionals with little to no prior Power BI experience."
+      description: "Connects and transform data from various sources, build interactive reports and dashboards, learn core DAX functions, and publish and share insights securely. By the end, participants confidently create professional data-driven visuals that deliver real business impact.\n\nKey learning areas include; importing and cleaning data from multiple sources, data visualisation best practices, track key performance indicators (KPIs) and understanding basic data modelling concepts. This course is suitable for organisations aiming to strengthen data-driven decision-making, improve reporting efficiency, and enhance business performance visibility.\n\nSuitable for managers, analysts, finance personnel, HR teams, operations staff, and professionals with little to no prior Power BI experience."
     },
     {
       title: "Becoming AGILE",
       cat: "IT and Digital",
       image: becomingAgileImage,
-      description: "Explore Agile principals through methodologies like Scrum and Kanban for project management. The course includes role simulations, sprint planning and tools for collaborative team environment. This is a practical training programme designed to introduce professionals to Agile principles, mindset, and frameworks that drive flexibility, collaboration, and performance. Participants will learn core Agile values and principles, differences between traditional and Agile ways of working, Key Agile frameworks, how to foster collaboration, accountability, and continuous improvement. Through interactive exercises and real-world case discussions, participants will understand how Agile practices can be applied across projects, departments, and organisational functions, not just IT. This course is ideal for organisations seeking to: (i) Improve project delivery speed and adaptability (ii) Strengthen cross-functional collaboration (iii) Enhance innovation and customer responsiveness (iv) Build a culture of continuous improvement. Suitable for managers, team leaders, project teams, and professionals across all industries who want to lead and work more effectively in dynamic environments."
+      description: "Explore Agile principals through methodologies like Scrum and Kanban for project management. The course includes role simulations, sprint planning and tools for collaborative team environment.\n\nThis is a practical training programme designed to introduce professionals to Agile principles, mindset, and frameworks that drive flexibility, collaboration, and performance. Participants will learn core Agile values and principles, differences between traditional and Agile ways of working, key Agile frameworks, how to foster collaboration, accountability, and continuous improvement.\n\nThrough interactive exercises and real-world case discussions, participants will understand how Agile practices can be applied across projects, departments, and organisational functions, not just IT. This course is ideal for organisations seeking to: (i) Improve project delivery speed and adaptability (ii) Strengthen cross-functional collaboration (iii) Enhance innovation and customer responsiveness (iv) Build a culture of continuous improvement.\n\nSuitable for managers, team leaders, project teams, and professionals across all industries who want to lead and work more effectively in dynamic environments."
     },
     {
       title: "Industry 4.0 & IoT Lab: Building Smart Systems for the Future",
       cat: "IT and Digital",
       image: iotLabImage,
-      description: "This intensive 6-week course provides a comprehensive project driven introduction to Industry 4.0 and Internet of Things (IoT), equipping students with practical skills to design, build, and deploy smart systems. Participants will be exposed to Python programming, augmented reality interfaces and industry oriented hands-on projects. The course culminates in group projects, presentations and offers digital badges based on objectives like attendance, programming challenges, and team contributions. It emphasizes real-world applications, collaboration, and innovation, it prepares participants to address challenges in smart cities, industrial automation and connected devices."
+      description: "This intensive 6-week course provides a comprehensive project driven introduction to Industry 4.0 and Internet of Things (IoT), equipping students with practical skills to design, build, and deploy smart systems. Participants will be exposed to Python programming, augmented reality interfaces and industry oriented hands-on projects.\n\nThe course culminates in group projects, presentations and offers digital badges based on objectives like attendance, programming challenges, and team contributions. It emphasizes real-world applications, collaboration, and innovation, it prepares participants to address challenges in smart cities, industrial automation and connected devices."
     },
     {
       title: "Smart Farming: Leveraging IoT and AI for Sustainable Agriculture",
@@ -412,6 +399,12 @@ const Training: React.FC = () => {
       image: ieltsTeflImage,
       description: "The IELTS and TEFL Preparation Course offers structured training in English language proficiency and teaching methodology. The programme supports participants in meeting international language assessment requirements while developing essential competencies for English language instruction in diverse educational contexts. Learners will develop strategic language and test performance skills across Listening, Reading, Writing, and Speaking, enabling them to meet required band scores for overseas postings, postgraduate study, and regulatory or migration requirements."
     },
+    {
+      title: "Professional Proofreading Services",
+      cat: "Language",
+      image: proofreadingImage,
+      description: "Our Professional Proofreading Service ensures your documents are refined, error-free, and aligned with industry standards. We review and enhance: (i) Business reports and proposals (ii) Corporate communications and policy documents (iii) Academic papers and research manuscripts (iv) Marketing materials and website content (v) Tender submissions and official correspondence.\n\nWe also refine sentence structure to improve readability and professional tone. This professional service is suitable for organisations and individuals seeking to: (i) Enhance document credibility and professionalism (ii) Reduce reputational risk from language errors (iii) Improve clarity and impact of key communications (iv) Strengthen submissions for publication, accreditation, or tender processes.\n\nSuitable for corporate teams, executives, researchers, consultants, and professionals who require high-quality written communication."
+    },
   ];
 
   const filtered = activeTab === 'All' ? programs : programs.filter(p => p.cat === activeTab);
@@ -454,7 +447,7 @@ const Training: React.FC = () => {
       </section>
 
       {/* Program Catalog */}
-      <section className="mt-32">
+      <section id="courses-catalog" className="mt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Course Catalog</h2>
