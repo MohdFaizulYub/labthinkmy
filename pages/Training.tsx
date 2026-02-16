@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Clock, Layers, Laptop, Shield, UserCheck, Microscope, Zap, ChevronDown, ChevronUp } from 'lucide-react';
+import { Clock, Layers, Laptop, Shield, UserCheck, Microscope, Zap, ChevronDown, ChevronUp, CheckCircle2, Users, Target } from 'lucide-react';
 import industrySpecificImage from '../assets/images/training/Industry-Specific Training.png';
 import immersiveLearningImage from '../assets/images/training/Immersive Learning.png';
 import handsOnPracticeImage from '../assets/images/training/Hands-On Practice.png';
@@ -10,6 +10,14 @@ import bimTechnologyImage from '../assets/images/training/course-image/technolog
 import blockchainTechnologyImage from '../assets/images/training/course-image/technology/Blockchain Technology.png';
 import digitalTransformationImage from '../assets/images/training/course-image/technology/Digital Transformation & Strategy.png';
 import digitalLiteracyImage from '../assets/images/training/course-image/technology/Digital Literacy for Professionals.png';
+import cybersecurityPdpaImage from '../assets/images/training/course-image/technology/Cybersecurity Awareness & PDPA Compliance Training.png';
+import statisticsPythonImage from '../assets/images/training/course-image/technology/Statistics For Data Analytics With Python.png';
+import aiForAllImage from '../assets/images/training/course-image/technology/AI for ALL Real-World Applications for Every Role.png';
+import powerBiImage from '../assets/images/training/course-image/technology/Getting Started with Microsoft Power BI.png';
+import becomingAgileImage from '../assets/images/training/course-image/technology/Becoming AGILE.png';
+import iotLabImage from '../assets/images/training/course-image/technology/Industry 4.0 & IoT Lab Building Smart Systems for the Future.png';
+import smartFarmingImage from '../assets/images/training/course-image/technology/Smart Farming Leveraging IoT and AI for Sustainable Agriculture.png';
+import assetTrackingImage from '../assets/images/training/course-image/technology/Advanced Asset Tracking Technologies.png';
 
 // Health & Safety Images
 import oshBasicsImage from '../assets/images/training/course-image/healthsafety/Safety & Health OSH Basics.png';
@@ -42,11 +50,73 @@ interface Program {
   description: string;
 }
 
+interface ParsedDescription {
+  overview: string;
+  keyPoints: string[];
+  targetAudience: string[];
+}
+
+const parseDescription = (description: string): ParsedDescription => {
+  // Split by common patterns that indicate sections
+  const result: ParsedDescription = {
+    overview: '',
+    keyPoints: [],
+    targetAudience: []
+  };
+
+  // Clean up the description
+  let cleanDesc = description.trim();
+
+  // Extract target audience (usually starts with "Suitable for" or contains "ideal for")
+  const targetMatch = cleanDesc.match(/Suitable for[\s\S]*?(?=\.|$)/i);
+  if (targetMatch) {
+    result.targetAudience = targetMatch[0]
+      .replace(/Suitable for/i, '')
+      .split(/,|and/)
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+    cleanDesc = cleanDesc.replace(targetMatch[0], '');
+  }
+
+  // Look for numbered/bulleted items (i), (ii), (iii), etc. or 1., 2., 3.
+  const bulletPattern = /\(([i|v|x]+)\)\s*([^()]+?)(?=\([ivx]+\)|Ideal for|Suitable for|Target audience|$)/gi;
+  const bulletMatches = [...cleanDesc.matchAll(bulletPattern)];
+
+  if (bulletMatches.length > 0) {
+    bulletMatches.forEach(match => {
+      result.keyPoints.push(match[2].trim());
+    });
+    // Remove bullet points from overview
+    cleanDesc = cleanDesc.replace(bulletPattern, '');
+  }
+
+  // Look for "Ideal for" or similar phrases that list benefits
+  const idealMatch = cleanDesc.match(/Ideal for[\s\S]*?:/i);
+  if (idealMatch && result.keyPoints.length === 0) {
+    const afterIdeal = cleanDesc.substring(cleanDesc.indexOf(idealMatch[0]) + idealMatch[0].length);
+    const benefits = afterIdeal.split(/\(\s*[i|v|x]+\s*\)/).filter(s => s.trim());
+    benefits.forEach(b => {
+      const clean = b.trim().replace(/[.,]$/, '');
+      if (clean.length > 10) result.keyPoints.push(clean);
+    });
+    cleanDesc = cleanDesc.substring(0, cleanDesc.indexOf(idealMatch[0]));
+  }
+
+  // Remaining text is overview
+  result.overview = cleanDesc
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[.,]$/, '');
+
+  return result;
+};
+
 const ProgramCard: React.FC<{ program: Program }> = ({ program }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const parsed = parseDescription(program.description);
 
   return (
-    <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden hover:shadow-lg transition-all duration-500 flex flex-col group h-full">
+    <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden hover:shadow-lg transition-all duration-500 flex flex-col group">
       <div className="relative h-48 overflow-hidden shrink-0">
         <img
           src={program.image}
@@ -60,30 +130,76 @@ const ProgramCard: React.FC<{ program: Program }> = ({ program }) => {
         </div>
       </div>
 
-      <div className="p-8 flex-grow flex flex-col">
-        {/* Standardized 2-line title */}
-        <h3 className="text-xl font-bold text-slate-900 mb-4 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2 min-h-[3.5rem]">
+      <div className="p-6 flex flex-col flex-1">
+        {/* Title - Standardized 2-line height for alignment */}
+        <h3 className="text-lg font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2 h-[3.5rem]">
           {program.title}
         </h3>
 
-        {/* Standardized 4-line description */}
-        <div className="relative flex-grow">
-          <p className={`text-slate-600 text-sm leading-relaxed text-justify ${isExpanded ? '' : 'line-clamp-4'}`}>
-            {program.description}
-          </p>
+        {/* Description Content - Shows 4 lines when collapsed */}
+        <div className={`${isExpanded ? '' : 'line-clamp-4'} mb-4`}>
+          {/* Overview */}
+          {parsed.overview && (
+            <p className="text-slate-600 text-sm leading-relaxed mb-3">
+              {parsed.overview}
+            </p>
+          )}
 
-          {/* Read More / Less Toggle */}
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="mt-3 text-blue-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:text-blue-800 transition-colors"
-          >
-            {isExpanded ? (
-              <>Show Less <ChevronUp size={14} /></>
-            ) : (
-              <>Read More <ChevronDown size={14} /></>
-            )}
-          </button>
+          {/* Key Points / Benefits */}
+          {parsed.keyPoints.length > 0 && (
+            <div className="mb-3">
+              <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <Target size={14} className="text-blue-500" />
+                Key Benefits
+              </h4>
+              <ul className="space-y-1.5">
+                {parsed.keyPoints.slice(0, isExpanded ? undefined : 2).map((point, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm text-slate-600">
+                    <CheckCircle2 size={14} className="text-blue-500 mt-0.5 shrink-0" />
+                    <span className="leading-relaxed">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Target Audience */}
+          {parsed.targetAudience.length > 0 && (
+            <div>
+              <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <Users size={14} className="text-blue-500" />
+                Suitable For
+              </h4>
+              <div className="flex flex-wrap gap-1.5">
+                {parsed.targetAudience.slice(0, 3).map((audience, idx) => (
+                  <span 
+                    key={idx} 
+                    className="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full"
+                  >
+                    {audience}
+                  </span>
+                ))}
+                {parsed.targetAudience.length > 3 && (
+                  <span className="px-2 py-0.5 bg-slate-100 text-slate-500 text-xs rounded-full">
+                    +{parsed.targetAudience.length - 3} more
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
         </div>
+
+        {/* Read More / Less Toggle - Always visible at bottom */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="text-blue-600 text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:text-blue-800 transition-colors self-start mt-auto"
+        >
+          {isExpanded ? (
+            <>Show Less <ChevronUp size={14} /></>
+          ) : (
+            <>Read More <ChevronDown size={14} /></>
+          )}
+        </button>
       </div>
     </div>
   );
@@ -143,6 +259,54 @@ const Training: React.FC = () => {
       cat: "IT and Digital",
       image: digitalLiteracyImage,
       description: "Equip professionals with the essential digital knowledge and skills required to thrive in a technology-driven work environment. The course addresses core digital competencies, including effective digital communication, data awareness, online security, and the use of digital tools for productivity and collaboration. It is designed to enhance employee confidence, digital readiness, and overall organisational performance in the digital economy."
+    },
+    {
+      title: "Cybersecurity Awareness & PDPA Compliance Training",
+      cat: "IT and Digital",
+      image: cybersecurityPdpaImage,
+      description: "This practical and industry-focused training equips employees with the knowledge and awareness needed to protect organisational data and comply with Malaysia's Personal Data Protection Act (PDPA) 2010. Participants will learn how to identify and prevent common cyber threats such as phishing, ransomware, malware, social engineering, and insider risks. The programme also emphasizes on PDPA data protection principles, responsibilities of data users and employees, managing personal data securely and reducing organisational legal and reputational risks. Through real-life case studies and interactive scenarios, employees will understand their role in safeguarding company information and maintaining regulatory compliance. This training is ideal for private companies seeking to: (i) Strengthen internal data protection practices (ii) Reduce cyber risk exposure (iii) Enhance PDPA compliance readiness (iv) Build a proactive security culture across the organisation"
+    },
+    {
+      title: "Statistics For Data Analytics With Python",
+      cat: "IT and Digital",
+      image: statisticsPythonImage,
+      description: "Statistics with Data Analytics with Python introduces fundamental statistical concepts and techniques essential for data analysis. Participants will learn to apply these skills using Python, one of the world's most in-demand programming tools to interpret and visualize data effectively. Participants will also learn how to apply key statistical concepts for business decision-making, analyse and interpret real-world datasets, perform data cleaning, visualisation, and exploratory data analysis, generate insights using Python libraries and present data findings clearly to support strategic decisions. The course combines foundational statistics with applied analytics, ensuring participants not only understand the theory but can confidently apply it in workplace scenarios. It is ideal for organisations seeking to: (i) Strengthen data-driven decision-making (ii) Upskill teams in analytics and digital competencies (iii) Improve operational efficiency through data insights (iv) Support digital transformation initiatives. Suitable for executives, analysts, engineers, managers, and professionals with little to intermediate experience in statistics or coding."
+    },
+    {
+      title: "AI for ALL: Real-World Applications for Every Role",
+      cat: "IT and Digital",
+      image: aiForAllImage,
+      description: "This course demystifies AI concepts and showcases practical applications across industries and job roles. Participants will explore tools and case studies to understand how AI can enhance productivity and decision making. This practical training demonstrates how AI can be applied across departments such as in HR, finance, marketing, operations, customer service, and management, regardless of technical background. Ideal for organisations seeking to: (i) Accelerate digital transformation initiatives (ii) Improve workforce productivity through AI adoption (iii) Build AI awareness across all levels of the organisation (iv) Foster innovation while maintaining responsible AI governance. Suitable for executives, managers, administrative staff, and professionals from all functions. No technical background required."
+    },
+    {
+      title: "Getting Started with Microsoft Power BI",
+      cat: "IT and Digital",
+      image: powerBiImage,
+      description: "Connects and transform data from various sources, build interactive reports and dashboards, learn core DAX functions, and publish and share insights securely. By the end, participants confidently create professional data-driven visuals that deliver real business impact. Key learning areas include; importing and cleaning data from multiple sources, data visualisation best practices, track key performance indicators (KPIs) and understanding basic data modelling concepts. This course is suitable for organisations aiming to strengthen data-driven decision-making, improve reporting efficiency, and enhance business performance visibility. Suitable for managers, analysts, finance personnel, HR teams, operations staff, and professionals with little to no prior Power BI experience."
+    },
+    {
+      title: "Becoming AGILE",
+      cat: "IT and Digital",
+      image: becomingAgileImage,
+      description: "Explore Agile principals through methodologies like Scrum and Kanban for project management. The course includes role simulations, sprint planning and tools for collaborative team environment. This is a practical training programme designed to introduce professionals to Agile principles, mindset, and frameworks that drive flexibility, collaboration, and performance. Participants will learn core Agile values and principles, differences between traditional and Agile ways of working, Key Agile frameworks, how to foster collaboration, accountability, and continuous improvement. Through interactive exercises and real-world case discussions, participants will understand how Agile practices can be applied across projects, departments, and organisational functions, not just IT. This course is ideal for organisations seeking to: (i) Improve project delivery speed and adaptability (ii) Strengthen cross-functional collaboration (iii) Enhance innovation and customer responsiveness (iv) Build a culture of continuous improvement. Suitable for managers, team leaders, project teams, and professionals across all industries who want to lead and work more effectively in dynamic environments."
+    },
+    {
+      title: "Industry 4.0 & IoT Lab: Building Smart Systems for the Future",
+      cat: "IT and Digital",
+      image: iotLabImage,
+      description: "This intensive 6-week course provides a comprehensive project driven introduction to Industry 4.0 and Internet of Things (IoT), equipping students with practical skills to design, build, and deploy smart systems. Participants will be exposed to Python programming, augmented reality interfaces and industry oriented hands-on projects. The course culminates in group projects, presentations and offers digital badges based on objectives like attendance, programming challenges, and team contributions. It emphasizes real-world applications, collaboration, and innovation, it prepares participants to address challenges in smart cities, industrial automation and connected devices."
+    },
+    {
+      title: "Smart Farming: Leveraging IoT and AI for Sustainable Agriculture",
+      cat: "IT and Digital",
+      image: smartFarmingImage,
+      description: "This 15-day training focuses on building a smart farming system using Internet of Things (IoT) and Artificial Intelligence (AI) technologies. Participants will be divided into several teams to develop a fully functional smart farm prototype integrating sensors, data analytics, and cloud-based dashboards to optimize agricultural processes. The project emphasizes hands-on learning, from sensor setup to AI driven insights, culminating in a secure and maintainable system."
+    },
+    {
+      title: "Advanced Asset Tracking Technologies",
+      cat: "IT and Digital",
+      image: assetTrackingImage,
+      description: "This course explores advanced asset tracking technologies, integrating AI visual recognition, LoraWAN, sensors, geofencing, UWB, RTLS, RFID, Bluetooth, GPS, and Blockchain. Participants will learn to implement these solutions for efficient tracking and management of assets across diverse environments, enhancing operational transparency and accuracy with blockchain's immutable ledger."
     },
 
     // HEALTH & SAFETY CATEGORY
@@ -313,7 +477,7 @@ const Training: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
             {filtered.map((p, i) => (
               <ProgramCard key={i} program={p} />
             ))}
