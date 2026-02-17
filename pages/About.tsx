@@ -1,6 +1,6 @@
 import React from 'react';
 import { Target, Eye, Shield, Star, Handshake, TrendingUp, Info } from 'lucide-react';
-import heroImage from '../assets/images/home/hero.png';
+import heroImage from '../assets/images/home/thinklab-office.png';
 
 const About: React.FC = () => {
   const coreValues = [
@@ -39,21 +39,28 @@ const About: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
         {/* Detailed Corporate Description */}
         <section className="mb-32">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-5 relative">
-              <div>
-                <span className="text-blue-600 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Corporate Overview</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight mb-8">
-                  Driving Organizational <br /> Excellence through <br /> Innovation.
-                </h2>
+          {/* Section Header */}
+          <div className="mb-12">
+            <span className="text-blue-600 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Corporate Overview</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
+              Driving Organizational <br /> Excellence through <br /> Innovation.
+            </h2>
+          </div>
+
+          {/* Content Grid with Equal Height */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            {/* Image Container - Aligned with text height */}
+            <div className="lg:col-span-5">
+              <div className="h-[90%] rounded-xl overflow-hidden shadow-sm group">
                 <img
                   src={heroImage}
                   alt="Thinklab Innovation"
-                  className="w-full h-auto rounded-xl object-cover shadow-sm"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
             </div>
 
+            {/* Text Content */}
             <div className="lg:col-span-7 space-y-8 text-slate-600 text-lg leading-relaxed text-justify">
               <p>
                 Thinklab is a multidisciplinary capability development and innovation hub dedicated to delivering high-impact training, consultancy, and professional competency solutions across industries. With a strong focus on future-ready skills, Thinklab integrates technology, industry expertise, and applied learning approaches to support organisations and professionals in navigating digital transformation, operational excellence, and emerging industry demands.
